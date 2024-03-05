@@ -13,13 +13,13 @@ pipelines:
           inputResources:
             - name: MyWebhook
           integrations:
-            - name: Artifactory
+            - name: JFrogAccessToken
         execution:
           onExecute:
             - echo "$res_MyWebhook_payload" | jq '.' > payload.json
-            - echo "$int_Artifactory_url"
+            - echo "$int_JFrogAccessToken_url"
             - echo "$step_url"
             - |
                 curl -XPOST --location 'https://coe.jfrog.io/worker/api/v1/execute/Kristian' \
                 --header 'Content-Type: application/json' \
-                --header "Authorization: Bearer $int_Artifactory_accessToken"
+                --header "Authorization: Bearer $int_JFrogAccessToken_accessToken"
